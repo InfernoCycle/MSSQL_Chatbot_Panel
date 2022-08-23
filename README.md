@@ -16,9 +16,15 @@ The first page is the Home page, this is where you can add an answer to any ques
 
 Add page is where you can add a question, answer pair and a tag. Enter a question in the first textbox then a answer in the second textbox. You can then choose a tag (not required) or add a tag that may not be there.
 
+![image](https://user-images.githubusercontent.com/105338348/186277918-58d3d613-842a-4c5a-aeaa-8442f747f40c.png)
+
 Change page is where you can modify the question and answer. Just choose a question from the drop down menu and the two text boxes below will be filled with the question and answers respectively. You will be able to type or delete anything in them and submit when finished.
 
+![image](https://user-images.githubusercontent.com/105338348/186277972-2e46063b-9a24-433a-b9ce-ea98ca5fb52d.png)
+
 Settings page is where you set the database credentials to connect to your server that the chatbot is using. The first 5 field entrys are required to connect to the database (with an exception of Table field but without it you won't get any questions loaded in the app)
+
+![image](https://user-images.githubusercontent.com/105338348/186278025-26047fe3-f6c0-4cf3-81fd-92e1468af4b3.png)
 
 # Azure SQL Help setup
 https://docs.microsoft.com/en-us/azure/azure-sql/database/single-database-create-quickstart?view=azuresql&tabs=azure-portal
