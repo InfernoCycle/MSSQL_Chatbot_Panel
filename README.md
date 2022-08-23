@@ -26,6 +26,9 @@ Settings page is where you set the database credentials to connect to your serve
 
 ![image](https://user-images.githubusercontent.com/105338348/186278025-26047fe3-f6c0-4cf3-81fd-92e1468af4b3.png)
 
+# Source Code
+The Source Code is provided. Simply download the HNBAdminDemo.py file
+
 # Azure SQL Help setup
 https://docs.microsoft.com/en-us/azure/azure-sql/database/single-database-create-quickstart?view=azuresql&tabs=azure-portal
 
