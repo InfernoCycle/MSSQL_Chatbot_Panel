@@ -17,7 +17,8 @@ filePath = directory + "settings.json"
 
 if(not (pathlib.Path(filePath).is_file())):
     #directory = os.path.join(os.path.dirname(__file__), "admin")
-    #os.mkdir(os.path.dirname(__file__) + "/admin")
+    #print(os.path.dirname(__file__) + "/admin")
+    os.mkdir(directory)
     with open(filePath, "w+") as file1:
       object = {
           "main": {
@@ -80,7 +81,8 @@ class Applet(Tk):
       self.trustCert = self.JsonFile["main"]["trustservercertificate"]
       
       if(self.server == "" or self.database == "" or self.username == "" or self.password == ""):
-          print("was empty one of these")
+        pass
+          #print("was empty one of these")
       else:
         try:
           if(self.trustCert == False):
@@ -98,7 +100,8 @@ class Applet(Tk):
           self.cursor.execute(f"select id, question from {self.table} where answer is null")
           self.isConnected = "Connected"
         except:
-          print("No query was able to run Line 81")
+          pass
+          #print("No query was able to run Line 81")
         
       self.Questions = list()
 
@@ -108,7 +111,8 @@ class Applet(Tk):
 
         self.sort(self.Questions)
       except:
-        print("No query was able to run Line 91")
+        pass
+        #print("No query was able to run Line 91")
 
       self.master = master
       self.master.title("Bot Admin Panel")
@@ -132,12 +136,22 @@ class Applet(Tk):
 
   def HomePage(self):
     for i in self.master.winfo_children():
-        print(i)
+        #print(i)
         i.destroy()
     
     def add():
-      pass
-    
+      self.cursor.execute(f"update {self.table} set answer = ? where question = ?", EntryAnswer.get("1.0". END), strVar.get())
+      self.cursor.commit()
+      Top = Toplevel(Panel)
+      Top.title("Submit")
+      Top.geometry("200x100")
+      Top.config(bg="gray")
+      Top.grid_columnconfigure([0], weight=1)
+      Top.grid_rowconfigure([0], weight=1)
+      
+      Notify = tk.Label(Top, text="Changes Saved")
+      Notify.grid(row=0, column=0)
+
     Panel = tk.Frame(self.master)
 
     Panel.grid_rowconfigure([0,1,2,3,4,5,6], weight=1)
@@ -235,10 +249,17 @@ class Applet(Tk):
     
     def submission():
       if(QuestionEntry.get("1.0", END).strip() != "" and AnswerEntry.get("1.0", END).strip() != "" and QuestionEntry.get("1.0", END).strip() != None and AnswerEntry.get("1.0", END).strip() != None):
-        print("run execute")
         self.cursor.execute("insert into " + self.table + "(question, answer, tag) values(?, ?, ?)", QuestionEntry.get("1.0", END).strip(), AnswerEntry.get("1.0", END).strip(), tagVar.get().strip())
-        print(self.Questions)
-        #self.cursor.commit()
+        self.cursor.commit()
+        Top = Toplevel(Panel)
+        Top.title("Submit")
+        Top.geometry("200x100")
+        Top.config(bg="gray")
+        Top.grid_columnconfigure([0], weight=1)
+        Top.grid_rowconfigure([0], weight=1)
+        
+        Notify = tk.Label(Top, text="Changes Saved")
+        Notify.grid(row=0, column=0)
       else:
         Pop = Toplevel(Panel) 
         Pop.geometry("100x100")
@@ -251,7 +272,7 @@ class Applet(Tk):
       def add():
         if(labelVar not in self.tags):
           self.tags.append(TagName.get())
-          file = open("app/src/main/java/com/example/firstapplication/admin/settings.json", "r+")
+          file = open(filePath, "r+")
           file.truncate()
           file.seek(0)
           self.JsonFile["main"]["tags"] = self.tags
@@ -326,10 +347,11 @@ class Applet(Tk):
       for y in self.cursor.fetchall():
         Question.append(y[0])
     except:
-      print("Could not run sql query")
+      pass
+      #print("Could not run sql query")
 
     def change(e):
-      print(stringVarQuestion.get().strip())
+      #print(stringVarQuestion.get().strip())
       self.cursor.execute(f"select id, question, answer from {self.table} where question = ?", stringVarQuestion.get().strip())
       data = self.cursor.fetchall()
       idVar.set(data[0][0])
@@ -345,7 +367,17 @@ class Applet(Tk):
 
       self.cursor.execute(f"update {self.table} set question = ?, answer = ? where " +
                           f"id={idVar.get().strip()}", QuestionChgEntry.get("1.0", END).strip(), AnswerChgEntry.get("1.0", END).strip())
-      #self.cursor.commit()
+      self.cursor.commit()
+
+      Top = Toplevel(Panel)
+      Top.title("Submit")
+      Top.geometry("200x100")
+      Top.config(bg="gray")
+      Top.grid_columnconfigure([0], weight=1)
+      Top.grid_rowconfigure([0], weight=1)
+      
+      Notify = tk.Label(Top, text="Changes Saved")
+      Notify.grid(row=0, column=0)
       
     Panel = ttk.Frame(self.master)
     Panel.grid_columnconfigure([0,1], weight=1)
@@ -399,17 +431,19 @@ class Applet(Tk):
       i.destroy()
     
     def encryptChange():
-      print(EncryptVar.get())
+      pass
+      #print(EncryptVar.get())
     
     def trustCertChange():
-      print(TrustServerCertVar.get())
+      pass
+      #print(TrustServerCertVar.get())
     
     def save(self):
-      print(filePath)
-      print(ServerEntry.get("1.0", END))
-      print(DatabaseEntry.get("1.0", END).strip())
-      print(UsernameEntry.get("1.0", END).strip())
-      print(PasswordEntry.get("1.0", END).strip())
+      #print(filePath)
+      #print(ServerEntry.get("1.0", END))
+      #print(DatabaseEntry.get("1.0", END).strip())
+      #print(UsernameEntry.get("1.0", END).strip())
+      #print(PasswordEntry.get("1.0", END).strip())
       file1 = open(filePath, "w+")
       file1.seek(0)
       file1.truncate()
@@ -430,7 +464,7 @@ class Applet(Tk):
       self.Table = TableEntry.get("1.0", END).strip()
       #TableEntry.insert("1.0", self.Table)
       
-      print(self.JsonFile)
+      #print(self.JsonFile)
       if(EncryptVar.get() == 0):
         self.JsonFile["main"]["encrypt"] = False
       elif(EncryptVar.get() == 1):
@@ -443,7 +477,6 @@ class Applet(Tk):
       file1.close()
       
       self.__init__(self.master)
-      print("Updated")
       
     Panel = ttk.Frame(self.master)
     Panel.grid_columnconfigure([0,1], weight=1)
