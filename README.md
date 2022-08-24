@@ -37,7 +37,7 @@ Make sure your table has the columns below (no capitalization):
 (id, question, answer, tag)
 
 # Supported Operating Systems
-Windows 8.1 and Windows 10 are supported. \n Note: (Other Window versions have not been tested as of yet)
+Windows 8.1 and Windows 10 are supported. (Other Window versions have not been tested as of yet)
 
 # Not Supported Operating Systems
 macOS and Linux are currently not supported.
