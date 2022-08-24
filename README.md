@@ -35,3 +35,10 @@ https://docs.microsoft.com/en-us/azure/azure-sql/database/single-database-create
 # Table Format
 Make sure your table has the columns below (no capitalization): 
 (id, question, answer, tag)
+
+# OS Supported
+Windows 8.1 and Windows 10 are supported. 
+Note: (Other Window versions have not been tested as of yet)
+
+# OS Not Supported
+macOS and Linux are currently not supported.
