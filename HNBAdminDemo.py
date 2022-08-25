@@ -140,7 +140,7 @@ class Applet(Tk):
         i.destroy()
     
     def add():
-      self.cursor.execute(f"update {self.table} set answer = ? where question = ?", EntryAnswer.get("1.0". END), strVar.get())
+      self.cursor.execute(f"update {self.table} set answer = ? where question = ?", EntryAnswer.get("1.0", END), strVar.get())
       self.cursor.commit()
       Top = Toplevel(Panel)
       Top.title("Submit")
@@ -181,7 +181,7 @@ class Applet(Tk):
     AnswerLabel = ttk.Label(Panel, text="Enter an answer for chosen quetion: ")
     EntryAnswer = tk.Text(Panel, height=3)
 
-    submit = tk.Button(Panel, text="Submit", width=10, command=lambda:add(strVar.get(), EntryAnswer.get("1.0", END)), font=self.btnFont, fg="red")
+    submit = tk.Button(Panel, text="Submit", width=10, command=lambda:add(), font=self.btnFont, fg="red")
 
     addBtn.grid(row=0, column=1, sticky="n", padx=10, pady=5)
     ChangeBtn.grid(row=0, column=2, sticky="n", padx=10, pady=5)
