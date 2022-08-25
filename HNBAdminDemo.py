@@ -349,6 +349,7 @@ class Applet(Tk):
         i.destroy()
     
     Question = list()
+    labelVar = StringVar()
     try:
       self.cursor.execute(f"select question from {self.table}")
       for y in self.cursor.fetchall():
@@ -359,21 +360,22 @@ class Applet(Tk):
 
     def change(e):
       #print(stringVarQuestion.get().strip())
-      self.cursor.execute(f"select id, question, answer from {self.table} where question = ?", stringVarQuestion.get().strip())
+      self.cursor.execute(f"select id, question, answer, tag from {self.table} where question = ?", stringVarQuestion.get().strip())
       data = self.cursor.fetchall()
       idVar.set(data[0][0])
       QuestionChgEntry.delete("1.0", END)
       QuestionChgEntry.insert("1.0", data[0][1])
       AnswerChgEntry.delete("1.0", END)
       AnswerChgEntry.insert("1.0", data[0][2])
+      tagVar.set(data[0][3])
       #QuestionChgEntry.insert("1.0", )
       
     def submission():
       if(QuestionChgEntry.get("1.0", END).strip() == ""):
         return
 
-      self.cursor.execute(f"update {self.table} set question = ?, answer = ? where " +
-                          f"id={idVar.get().strip()}", QuestionChgEntry.get("1.0", END).strip(), AnswerChgEntry.get("1.0", END).strip())
+      self.cursor.execute(f"update {self.table} set question = ?, answer = ?, tag= ? where " +
+                          f"id={idVar.get().strip()}", QuestionChgEntry.get("1.0", END).strip(), AnswerChgEntry.get("1.0", END).strip(), tagVar.get().strip())
       self.cursor.commit()
 
       Top = Toplevel(Panel)
@@ -385,10 +387,39 @@ class Applet(Tk):
       
       Notify = tk.Label(Top, text="Changes Saved")
       Notify.grid(row=0, column=0)
+    
+    def modal():
+      def add():
+        if(labelVar not in self.tags):
+          self.tags.append(TagName.get())
+          file = open(filePath, "r+")
+          file.truncate()
+          file.seek(0)
+          self.JsonFile["main"]["tags"] = self.tags
+          json.dump(self.JsonFile, file, indent=3)
+          pop.destroy()
+          Panel.update()
+          Panel.update_idletasks()
       
+      pop = Toplevel(Panel)
+      
+      pop.geometry("170x170")
+      pop.maxsize(200,200)
+      pop.minsize(140,140)
+      pop.grid_rowconfigure([0,1,2], weight=1)
+      pop.grid_columnconfigure([0], weight=1)
+      
+      TagLbe = tk.Label(pop, text="Enter Tag Name:")
+      TagName = ttk.Entry(pop, textvariable=labelVar)
+      save = tk.Button(pop, text="Save", font=self.btnFont, command=lambda:add())
+      
+      TagLbe.grid(row=0, column=0, padx=10)
+      TagName.grid(row=1, column=0, padx=10)
+      save.grid(row=2, column=0, padx=10)
+
     Panel = ttk.Frame(self.master)
     Panel.grid_columnconfigure([0,1], weight=1)
-    Panel.grid_rowconfigure([0,1,2,3,4,5,6], weight=1)
+    Panel.grid_rowconfigure([0,1,2,3,4,5,6,7,8,9], weight=1)
     
     idVar = StringVar(Panel)
     ButtonPanel = ttk.Frame(Panel)
@@ -417,6 +448,11 @@ class Applet(Tk):
 
     Submit = tk.Button(Panel, text="Submit", command=lambda:submission(), font=self.btnFont, fg="red")
     
+    ####--------------------Tag Section-----------------------------------------
+    tagVar = StringVar()
+    TagCombobox = ttk.Combobox(Panel, textvariable=tagVar, values=self.tags)
+    TagBtn = tk.Button(Panel, text="Click to add tag", fg="blue", borderwidth=0, command=lambda:modal())
+
     homeBtn.grid(row=0, column=0, padx=10, pady=5)
     addBtn.grid(row=0, column=1, padx=10, pady=5)
     changeBtn.grid(row=0, column=2, padx=10, pady=5)
@@ -430,7 +466,9 @@ class Applet(Tk):
 
     AnswerChgLabel.grid(row=5, column=0)
     AnswerChgEntry.grid(row=6, column=0, padx=10)
-    Submit.grid(row=7, column=0, pady=5)
+    TagCombobox.grid(row=7, column=0, padx=10, pady=10)
+    TagBtn.grid(row=8, column=0)
+    Submit.grid(row=9, column=0, pady=5)
     Panel.grid(row=0, column=0)
   
   def settings(self):
