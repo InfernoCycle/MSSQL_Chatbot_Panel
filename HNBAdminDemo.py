@@ -163,13 +163,20 @@ class Applet(Tk):
 
     strVar = tk.StringVar(Panel)
     
+    self.cursor.execute(f"select question from {self.table} where answer is null")
+    temp = self.cursor.fetchall()
+    #question = list()
+    question = [item[0] for item in temp]
+    #for item in temp:
+     # question.append(item[0])
+    
     addBtn = tk.Button(ButtonPanel, text="Add", command=lambda:self.Add(), width=10, fg="red", font=self.btnFont)
     ChangeBtn = tk.Button(ButtonPanel, text="Change", command=lambda:self.ChangePage(), width=10, fg="red", font=self.btnFont)
     homeBtn = tk.Button(ButtonPanel, text="Home", state="normal", fg="red", width=10, font=self.btnFont, bg="lightgreen")
     settingsBtn = tk.Button(ButtonPanel, text="Settings", command=lambda:self.settings(), fg="red", width=10, font=self.btnFont)
 
     QuestionLabel = ttk.Label(Panel, text="Choose question (Questions here do not have an answer):")
-    self.Combobox = ttk.Combobox(Panel, textvariable=strVar, values=self.Questions, width=40)
+    self.Combobox = ttk.Combobox(Panel, textvariable=strVar, values=question, width=40)
 
     AnswerLabel = ttk.Label(Panel, text="Enter an answer for chosen quetion: ")
     EntryAnswer = tk.Text(Panel, height=3)
