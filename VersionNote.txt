@@ -6,3 +6,5 @@ Version 1.1.0 (8/24/2022)
   before nothing would show up even if user had an empty answer.
 
 - Home Page now works correctly and submissions will now go through.
+
+- Change Page now lets you change the tag of a column of the selected question
