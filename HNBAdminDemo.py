@@ -163,12 +163,15 @@ class Applet(Tk):
 
     strVar = tk.StringVar(Panel)
     
-    self.cursor.execute(f"select question from {self.table} where answer is null")
-    temp = self.cursor.fetchall()
-    #question = list()
-    question = [item[0] for item in temp]
-    #for item in temp:
-     # question.append(item[0])
+    try:
+        self.cursor.execute(f"select question from {self.table} where answer is null")
+        temp = self.cursor.fetchall()
+        #question = list()
+        question = [item[0] for item in temp]
+        #for item in temp:
+         # question.append(item[0])
+    except:
+        pass
     
     addBtn = tk.Button(ButtonPanel, text="Add", command=lambda:self.Add(), width=10, fg="red", font=self.btnFont)
     ChangeBtn = tk.Button(ButtonPanel, text="Change", command=lambda:self.ChangePage(), width=10, fg="red", font=self.btnFont)
