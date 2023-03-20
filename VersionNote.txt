@@ -8,3 +8,6 @@ Version 1.1.0 (8/24/2022)
 - Home Page now works correctly and submissions will now go through.
 
 - Change Page now lets you change the tag of a column of the selected question
+
+Version 1.1.9 (3/20/2023)
+- Fixed Problem that .exe file didn't open due to missing credentials for remote sql server that wasn't there.
