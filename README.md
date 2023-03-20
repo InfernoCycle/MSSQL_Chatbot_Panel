@@ -4,7 +4,7 @@
 App That allows users that own a chatbot to alter the contents of it, such as the answers and questions of it.
 
 # Getting Started
-To get started download the HNBAdminDemo [zip](https://github.com/InfernoCycle/MSSQL_Chatbot_Panel/archive/refs/tags/MSSQLChatbot.zip) file and extract contents. create a shortcut for the HNBAdminDemo.exe file and move it anywhere. You should be all set to run it.
+To get started download the HNBAdminDemo [zip](https://github.com/InfernoCycle/MSSQL_Chatbot_Panel/archive/refs/tags/v1.1.9.zip) file and extract contents. create a shortcut for the HNBAdminDemo.exe file and move it anywhere. You should be all set to run it.
 
 # After opening up program
 To connect to your server that contains the chatbot contents, go to the settings page on the opened app and enter in the information in the named fields.
